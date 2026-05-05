@@ -1,0 +1,11 @@
+{
+  "name": "project",
+  "dependencies": {
+    "tessl/pypi-fastapi": {
+      "version": "0.116.0"
+    },
+    "tessl/npm-react": {
+      "version": "19.2.0"
+    }
+  }
+}

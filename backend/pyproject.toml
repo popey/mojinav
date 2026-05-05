@@ -1,0 +1,14 @@
+[project]
+name = "mojinav-backend"
+version = "0.1.0"
+description = "MojiNav - Emoji-only navigation backend"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "httpx>=0.26.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
