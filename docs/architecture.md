@@ -13,17 +13,16 @@ Browser ──▶ Cloudflare ──┬─▶ Pages (frontend bundle)            
 
 No origin server. No Python. No Docker.
 
-## Current topology (2026-05-05)
+## Current topology (2026-05-06, post-2b)
 
 ```
-Browser ──▶ Cloudflare ──▶ alan's box (Docker) ──┬─▶ Vite dev server :5173
-                                                  └─▶ FastAPI :8000
-                                                       ├─▶ Overpass
-                                                       └─▶ ORS
+Browser ──▶ Cloudflare ──┬─▶ Pages    (mojinav.popey.com/*, static SPA)
+                         └─▶ Worker   (mojinav.popey.com/api/*)
+                              ├─▶ Overpass
+                              └─▶ ORS
 ```
 
-Deployed via `git pull && docker compose up -d --build` from `popey/mojinav-private`.
-Containers: `mojinav-backend-1`, `mojinav-frontend-1`.
+Deploy: `cd worker && npx wrangler deploy` for the API; `cd frontend && npm run build && npx wrangler pages deploy dist --project-name=mojinav` for the SPA. Hetzner box retired.
 
 ## Decisions
 
