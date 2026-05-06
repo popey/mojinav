@@ -9,7 +9,10 @@ export default defineConfig(({ mode }) => {
   // sits behind a reverse proxy like Cloudflare. Unset = local dev only.
   const env = loadEnv(mode, process.cwd(), '')
   const publicHost = env.VITE_PUBLIC_HOST?.trim()
-  const apiUrl = env.VITE_API_URL?.trim() || 'http://localhost:8000'
+  // Local dev: point at `wrangler dev` (worker/) running on :8787.
+  // In production, Cloudflare intercepts /api/* before it reaches Vite,
+  // so this proxy is local-only.
+  const apiUrl = env.VITE_API_URL?.trim() || 'http://localhost:8787'
 
   return {
     plugins: [react()],
@@ -28,7 +31,6 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: apiUrl,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },
