@@ -30,3 +30,9 @@ __pycache__/
 
 # Local working notes (not for publication)
 backlog.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

@@ -12,9 +12,15 @@ cd mojinav
 cp .env.example .env
 # Edit .env and add your OpenRouteService key from
 # https://openrouteservice.org/dev/#/signup
-docker compose up
-# Open http://localhost:5173
+
+# Frontend
+cd frontend && npm ci && npm run dev    # serves on http://localhost:5173
+
+# Backend (in another terminal)
+cd worker && npm install && npx wrangler dev    # serves /api on http://localhost:8787
 ```
+
+The Vite dev server proxies `/api/*` to `VITE_API_URL` (default `http://localhost:8000`); set `VITE_API_URL=http://localhost:8787` to point it at the Worker.
 
 ## 📱 Mobile testing
 
@@ -27,52 +33,44 @@ ngrok http 5173            # or `tailscale up` and use your Tailscale hostname
 ## 🏗️ Architecture
 
 ```
-Frontend (React/Vite, :5173)  ──▶  Backend (FastAPI, :8000)
-                                        │
-                                        ├─▶ Overpass         (place search)
-                                        ├─▶ OpenRouteService (walking routes)
-                                        └─▶ Stadia Maps      (map tiles)
+Browser ──▶ Cloudflare ──┬─▶ Frontend (Vite/Pages, /*)
+                         └─▶ Worker (mojinav.popey.com/api/*)
+                              ├─▶ Overpass (4 mirrors, rotated)
+                              ├─▶ OpenRouteService
+                              └─▶ Stadia Maps (tiles, fetched directly by browser)
 ```
 
-Two containers on [Chainguard](https://www.chainguard.dev/) base images.
+Backend is a single Cloudflare Worker (`worker/src/index.ts`, ~250 lines of TypeScript). No origin server, no Docker, no Python.
 
 ## 🔧 Development
 
-### With Docker
+### Worker
 
 ```bash
-docker compose up                                            # full stack
-docker compose logs -f                                       # tail logs
-docker compose build backend && docker compose up -d backend # after backend change
+cd worker
+npm install
+echo "ORS_API_KEY=your_key_here" > .dev.vars
+npx wrangler dev          # http://localhost:8787
+npx wrangler deploy       # ships to mojinav.popey.com/api/*
+npx wrangler tail         # follow live logs
 ```
 
-Frontend hot-reloads via Vite. Backend changes need a rebuild (volume mounts are intentionally commented out in `docker-compose.yml`).
+Configuration lives in `worker/wrangler.toml`: `[vars]` for non-secrets, `wrangler secret put ORS_API_KEY` for the API key, and two `[[unsafe.bindings]]` entries for the per-IP rate limiters (30/min search, 60/min route).
 
-### Without Docker
-
-If you have `uv` and `npm` you can run the two halves directly.
+### Frontend
 
 ```bash
-# Backend (terminal 1) — needs Python 3.11+
-cd backend
-uv sync                                          # creates .venv from uv.lock
-ORS_API_KEY=your_key_here \
-MOJINAV_CONTACT_URL=https://your-domain.example/ \
-  .venv/bin/python -m uvicorn src.main:app --reload --port 8000
-
-# Frontend (terminal 2)
 cd frontend
 npm ci
-npm run dev
+npm run dev               # http://localhost:5173
+npm run build             # static bundle in dist/
 ```
-
-The Vite dev server proxies `/api/*` to `VITE_API_URL` (defaults to `http://localhost:8000`).
 
 ## 🔒 Privacy & logging
 
-User coordinates are sent to OpenStreetMap (Overpass) and OpenRouteService — that's how the app finds places and routes. MojiNav's own backend logs scrub coordinates and client IPs before emitting anything: app log lines round coordinates to ~11 km, mask the last octet of each IP, and a custom uvicorn-access filter rewrites `?lat=…&lng=…` query params to `?lat=x&lng=x` before the request line is written.
+User coordinates are sent to OpenStreetMap (Overpass) and OpenRouteService — that's how the app finds places and routes. The Worker logs scrub coordinates and client IPs before emitting: log lines round coordinates to ~11 km (1 decimal), mask the trailing octet of IPv4 / the trailing groups of IPv6, and redact numeric components from cache-key log lines (full precision is preserved in the actual edge cache key).
 
-Default log level is `INFO`. Set `MOJINAV_LOG_LEVEL=DEBUG` to enable the verbose Overpass query body (which embeds raw coordinates) for local debugging only.
+Default log level is `INFO`. Set `MOJINAV_LOG_LEVEL=DEBUG` in `wrangler.toml` `[vars]` to enable the verbose Overpass query body (which embeds raw coordinates) for local debugging only.
 
 ## 📍 API
 

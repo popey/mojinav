@@ -1,0 +1,40 @@
+name = "mojinav"
+main = "src/index.ts"
+compatibility_date = "2026-05-06"
+compatibility_flags = ["nodejs_compat"]
+
+# Production route. Cloudflare intercepts /api/* before the request reaches
+# alan's box; the Vite frontend container keeps serving everything else
+# until 2b (Pages) lands.
+routes = [
+  { pattern = "mojinav.popey.com/api/*", zone_name = "popey.com" },
+]
+
+[observability]
+enabled = true
+
+# ORS_API_KEY is provisioned via `wrangler secret put ORS_API_KEY`,
+# not in this file. See docs/architecture.md cutover step 0.
+
+[vars]
+MOJINAV_CONTACT_URL = "https://github.com/popey/mojinav"
+MOJINAV_LOG_LEVEL = "INFO"
+
+# Rate-limiting bindings. Two namespaces so search and route get the
+# same per-IP ceilings the FastAPI app advertised. Period is fixed at
+# 60s by the platform; limit is per-IP per-period.
+[[unsafe.bindings]]
+type = "ratelimit"
+name = "SEARCH_RL"
+namespace_id = "1001"
+simple = { limit = 30, period = 60 }
+
+[[unsafe.bindings]]
+type = "ratelimit"
+name = "ROUTE_RL"
+namespace_id = "1002"
+simple = { limit = 60, period = 60 }
+
+# Workers Route is configured in the Cloudflare dashboard, not here:
+#   mojinav.popey.com/api/*  ->  this Worker
+# (see docs/architecture.md cutover step 3)
