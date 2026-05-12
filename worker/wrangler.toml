@@ -3,9 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2026-05-06"
 compatibility_flags = ["nodejs_compat"]
 
-# Production route. Cloudflare intercepts /api/* before the request reaches
-# alan's box; the Vite frontend container keeps serving everything else
-# until 2b (Pages) lands.
+# Production route — Cloudflare intercepts /api/* and serves it from the Worker;
+# everything else is served by Cloudflare Pages.
 routes = [
   { pattern = "mojinav.popey.com/api/*", zone_name = "popey.com" },
 ]

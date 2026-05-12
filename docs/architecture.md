@@ -88,5 +88,4 @@ worker/
 ## Cross-references
 
 - Backlog: `backlog.md` (gitignored, alan's local copy only).
-- Public repo target: `popey/mojinav` (post-#4).
-- Private deploy repo: `popey/mojinav-private` (current).
+- Public repo: `popey/mojinav`.
