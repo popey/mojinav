@@ -1,0 +1,5 @@
+Run: 2026-06-04T13:36:46Z
+Selected tasks: [1 (labelling) -> substituted to 2, 5 (coding improvements), 4 (engineering investments)]
+Repository state: open_issues=0, unlabelled_issues=0, repo_assist_prs=0, other_prs=5
+Actions: inspected top-level files (README, package.json), scanned for low-risk improvements — none implemented this run.
+No GitHub write performed; issuing noop.
