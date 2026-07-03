@@ -1,6 +1,8 @@
-2026-06-08T01:32:57Z - Repo Assist run
+2026-07-03T04:26:15Z - Repo Assist run
 Actions:
-- Commented on issue #14: offered TypeScript alignment and safe devDependency bumps
-- Commented on issue #21: offered test scaffold and CI test step
-- Updated Monthly Activity issue #18 with Suggested Actions and Run History
-Notes: Task 2 (issue comments) substituted to Task 1 due to no suitable human issues; no unlabelled issues to process.
+- Added CONTRIBUTING.md with small-PR guidance and checks.
+- Linked CONTRIBUTING.md from README.
+- Verified `cd frontend && npm ci && npm run build` and `cd worker && npm ci && npm run typecheck`.
+- Commented on issues #30 and #43 with guidance toward low-risk CI coverage.
+- Updated the July monthly summary issue.
+Notes: Task 3 had no safe bug-fix target and fell back to Task 2.
