@@ -1,1 +1,1 @@
-2026-07-03T04:26:15Z: Added CONTRIBUTING.md, linked it from README, ran frontend build and worker typecheck, commented on #30 and #43, and updated monthly summary.
+2026-07-08T03:54:52Z: Fixed worker polyline validation, added worker tests/test script, commented on #68 and #71, and added a monthly run-update comment.

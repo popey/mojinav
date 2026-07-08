@@ -1,8 +1,8 @@
-2026-07-03T04:26:15Z - Repo Assist run
+2026-07-08T03:54:52Z - Repo Assist run
 Actions:
-- Added CONTRIBUTING.md with small-PR guidance and checks.
-- Linked CONTRIBUTING.md from README.
-- Verified `cd frontend && npm ci && npm run build` and `cd worker && npm ci && npm run typecheck`.
-- Commented on issues #30 and #43 with guidance toward low-risk CI coverage.
-- Updated the July monthly summary issue.
-Notes: Task 3 had no safe bug-fix target and fell back to Task 2.
+- Added bounds checks to worker polyline decoding so truncated/invalid geometry fails closed.
+- Added worker regression tests and a `npm test` script using Node 22 strip-types.
+- Verified `cd worker && npm ci && npm run typecheck && npm test` and `cd frontend && npm ci && npm run build`.
+- Commented on #68 and #71, and posted a monthly run-update comment on #49.
+- Created a draft PR intent for `fix(worker): reject malformed polyline geometry`.
+- Closed duplicate issues #69, #70, and #72.
