@@ -1,19 +1,22 @@
 {
-  "last_run": "2026-07-13T15:21:59.972Z",
+  "last_run": "2026-07-14T03:45:24.380Z",
   "commented_issues": [
     17,
     41,
     60,
-    29
+    29,
+    14,
+    21
   ],
   "fix_branch": "repo-assist/fix-issue-27-export-level-type",
   "docs_branch": "repo-assist/improve-contributing-guide",
   "monthly_summary_issue": 49,
   "notes": [
-    "Commented on #29 about consolidating the duplicate export-type thread with #27.",
-    "Created a frontend manifest-sync PR intent and validated build/typecheck.",
+    "Commented on #14 about the dependency/CI baseline already being in place.",
+    "Commented on #21 about the missing dedicated test runner and CI smoke tests.",
+    "Created the repo-assist/improve-worker-response-cleanup-2026-07-14 branch and validated worker typecheck plus frontend build.",
     "Updated the July monthly activity summary.",
-    "Recent context: CI/comments work remains on #41, #60, #83, #84, #85."
+    "Recent context: CI/comments work remains on #41, #48, #60, #83, #84, #85."
   ],
   "ci_branch": "repo-assist/eng-ci-workflow-2026-07-11"
 }
