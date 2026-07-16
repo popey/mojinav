@@ -1,1 +1,1 @@
-2026-07-13T15:21:59.972Z: Commented on #29, synced the frontend manifest, validated build/typecheck, and updated the monthly summary.
+2026-07-16T14:33:25.997Z: Commented on #65, fixed worker polyline decoding, updated the worker quick start docs, and refreshed the monthly summary.

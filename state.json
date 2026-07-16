@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-07-14T14:24:47.444Z",
+  "last_run": "2026-07-16T14:33:25.997Z",
   "commented_issues": [
     14,
     17,
@@ -7,7 +7,8 @@
     29,
     41,
     44,
-    60
+    60,
+    65
   ],
   "fix_branch": "repo-assist/fix-issue-27-export-level-type",
   "docs_branch": "repo-assist/improve-readme-npm-ci",
@@ -20,7 +21,10 @@
     "Recent context: CI/comments work remains on #41, #48, #60, #83, #84, #85.",
     "Commented on #44 about the provider-auth failure looking like a configuration issue.",
     "Created repo-assist/eng-ci-workflow-2026-07-14 with a minimal CI workflow for frontend build and worker typecheck.",
-    "Created repo-assist/improve-readme-npm-ci with a README tweak to use npm ci in the worker quick start."
+    "Created repo-assist/improve-readme-npm-ci with a README tweak to use npm ci in the worker quick start.",
+    "Commented on #65 about truncated polyline geometry in the worker decoder.",
+    "Created repo-assist/fix-polyline-validation-2026-07-16 and validated worker tests/typecheck plus frontend build.",
+    "Prepared repo-assist/improve-readme-worker-ci-2026-07-16 to align the worker quick start with npm ci."
   ],
   "ci_branch": "repo-assist/eng-ci-workflow-2026-07-14"
 }
