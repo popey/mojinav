@@ -1,1 +1,1 @@
-2026-07-16T14:33:25.997Z: Commented on #65, fixed worker polyline decoding, updated the worker quick start docs, and refreshed the monthly summary.
+2026-07-17T03:47:18.719Z: Commented on #86 and #89, aligned workspace package metadata, added a frontend typecheck script, and refreshed the monthly summary.

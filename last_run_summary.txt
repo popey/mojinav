@@ -1,6 +1,7 @@
-2026-07-16T14:33:25.997Z - Repo Assist run
+2026-07-17T03:47:18.719Z - Repo Assist run
 Actions:
-- Commented on issue #65 about truncated polyline geometry handling.
-- Fixed worker polyline decoding to fail closed on truncated input and added regression tests.
-- Updated the worker quick-start docs to use npm ci.
+- Commented on issue #86 about Repo Assist workflow failure caused by ET budget exhaustion.
+- Commented on issue #89 about ET budget exhaustion plus missing tool/permission errors.
+- Updated frontend and worker package metadata, added a frontend typecheck script, and aligned TypeScript versions.
+- Validated frontend typecheck/build and worker typecheck.
 - Refreshed the July monthly activity summary.
