@@ -1,11 +1,12 @@
 {
-  "last_run": "2026-07-19T04:04:42.697Z",
+  "last_run": "2026-07-20T14:39:02.782Z",
   "commented_issues": [
     14,
     17,
     21,
     29,
     33,
+    37,
     41,
     44,
     60,
@@ -13,7 +14,7 @@
     86,
     89
   ],
-  "fix_branch": "repo-assist/fix-issue-27-export-level-type",
+  "fix_branch": "repo-assist/improve-cache-ttl-2026-07-20",
   "docs_branch": "repo-assist/improve-readme-npm-ci",
   "monthly_summary_issue": 49,
   "notes": [
@@ -22,7 +23,10 @@
     "Created repo-assist/improve-tooling-metadata; frontend and worker package metadata are aligned and frontend has a typecheck script.",
     "Validated frontend typecheck/build and worker typecheck after refreshing dependencies.",
     "Current backlog context: #41, #48, #60, #83, #84, #85 still need attention.",
-    "Monthly activity issue: #49."
+    "Monthly activity issue: #49.",
+    "Commented on #37 about the safe type-only export path for Level and validated the worker typecheck.",
+    "Created repo-assist/improve-cache-ttl-2026-07-20; worker cache TTL units were clarified without changing max-age values.",
+    "Validated frontend build and worker typecheck after the worker-only change."
   ],
   "ci_branch": "repo-assist/eng-ci-workflow-2026-07-19",
   "improve_branch": "repo-assist/improve-tooling-metadata"
