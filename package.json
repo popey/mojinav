@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@tessl/cli": "^0.52.2"
+    "@tessl/cli": "^0.92.0"
   }
 }
