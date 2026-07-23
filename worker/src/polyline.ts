@@ -6,26 +6,35 @@ export function decodePolyline(polyline: string): number[][] {
   let lat = 0;
   let lng = 0;
 
-  while (index < polyline.length) {
+  const readDelta = (): number => {
     let result = 0;
     let shift = 0;
-    let b: number;
-    do {
-      b = polyline.charCodeAt(index++) - 63;
-      result |= (b & 0x1f) << shift;
-      shift += 5;
-    } while (b >= 0x20);
-    lat += result & 1 ? ~(result >> 1) : result >> 1;
 
-    result = 0;
-    shift = 0;
-    do {
-      b = polyline.charCodeAt(index++) - 63;
-      result |= (b & 0x1f) << shift;
-      shift += 5;
-    } while (b >= 0x20);
-    lng += result & 1 ? ~(result >> 1) : result >> 1;
+    while (true) {
+      if (index >= polyline.length) {
+        throw new Error("Invalid encoded polyline: truncated coordinate");
+      }
 
+      const value = polyline.charCodeAt(index++) - 63;
+      if (value < 0 || value > 0x3f) {
+        throw new Error("Invalid encoded polyline: invalid character");
+      }
+
+      result |= (value & 0x1f) << shift;
+      if (value < 0x20) break;
+
+      shift += 5;
+      if (shift > 30) {
+        throw new Error("Invalid encoded polyline: coordinate overflow");
+      }
+    }
+
+    return result & 1 ? ~(result >> 1) : result >> 1;
+  };
+
+  while (index < polyline.length) {
+    lat += readDelta();
+    lng += readDelta();
     points.push([lng / 1e5, lat / 1e5]);
   }
 
